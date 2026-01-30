@@ -17,13 +17,16 @@ public class UserEntity {
     @Column(name = "password_hash")
     private String passwordHash;
     private boolean active;
+    private UserRoles role;
 
-    public UserEntity() {}
+    public UserEntity() {
+    }
 
-    public UserEntity(String email,String passwordHash, boolean active) {
+    public UserEntity(String email, String passwordHash, boolean active, UserRoles role) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.active = active;
+        this.role = role;
     }
 
     public UUID getId() {
@@ -56,5 +59,13 @@ public class UserEntity {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getRole() {
+        return role.getRole();
+    }
+
+    public void setRole(UserRoles role) {
+        this.role = role;
     }
 }

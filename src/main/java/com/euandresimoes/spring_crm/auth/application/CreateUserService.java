@@ -1,10 +1,11 @@
 package com.euandresimoes.spring_crm.auth.application;
 
 import com.euandresimoes.spring_crm.auth.domain.UserEntity;
+import com.euandresimoes.spring_crm.auth.domain.UserRoles;
 import com.euandresimoes.spring_crm.auth.domain.dto.CreateUserCommand;
 import com.euandresimoes.spring_crm.auth.domain.dto.CreateUserResponse;
 import com.euandresimoes.spring_crm.auth.domain.exception.EmailAlreadyInUseException;
-import com.euandresimoes.spring_crm.auth.infra.UserRepository;
+import com.euandresimoes.spring_crm.auth.infra.repository.UserRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,9 @@ public class CreateUserService {
         UserEntity user = repo.save(new UserEntity(
                 command.email(),
                 pwdEncoder.encode(command.password()),
-                true
-        ));
+                true,
+                UserRoles.USER));
 
-        return new CreateUserResponse(user.getId(), user.getEmail());
+        return new CreateUserResponse(user.getId(), user.getEmail(), user.getRole());
     }
 }

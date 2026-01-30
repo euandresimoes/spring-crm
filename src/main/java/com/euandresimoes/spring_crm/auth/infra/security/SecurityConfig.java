@@ -1,4 +1,4 @@
-package com.euandresimoes.spring_crm.shared.security;
+package com.euandresimoes.spring_crm.auth.infra.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -8,7 +8,9 @@
       "mainClass": "com.euandresimoes.spring_crm.SpringCrmApplication",
       "vmArgs": "-Dspring.profiles.active=dev",
       "env": {
-        "SPRING_PROFILES_ACTIVE": "dev"
+        "SPRING_PROFILES_ACTIVE": "dev",
+        // "openssl rand -base64 32"
+        "JWT_SECRET": "super-secret-dev"
       }
     },
     {
@@ -19,6 +21,8 @@
       "vmArgs": "-Dspring.profiles.active=prod",
       "env": {
         "SPRING_PROFILES_ACTIVE": "prod",
+        // "openssl rand -base64 32"
+        "JWT_SECRET": "super-secret-prod",
         "DB_URL": "jdbc:postgresql://pg:3306/proddb",
         "DB_USER": "prod",
         "DB_PWD": "prod"

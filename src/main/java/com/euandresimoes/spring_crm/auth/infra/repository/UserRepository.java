@@ -1,4 +1,4 @@
-package com.euandresimoes.spring_crm.auth.infra;
+package com.euandresimoes.spring_crm.auth.infra.repository;
 
 import com.euandresimoes.spring_crm.auth.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
