@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot Dev",
+      "request": "launch",
+      "mainClass": "com.euandresimoes.spring_crm.SpringCrmApplication",
+      "vmArgs": "-Dspring.profiles.active=dev",
+      "env": {
+        "SPRING_PROFILES_ACTIVE": "dev"
+      }
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot Prod",
+      "request": "launch",
+      "mainClass": "com.euandresimoes.spring_crm.SpringCrmApplication",
+      "vmArgs": "-Dspring.profiles.active=prod",
+      "env": {
+        "SPRING_PROFILES_ACTIVE": "prod",
+        "DB_URL": "jdbc:postgresql://pg:3306/proddb",
+        "DB_USER": "prod",
+        "DB_PWD": "prod"
+      }
+    }
+  ]
+}
