@@ -1,11 +1,11 @@
 package com.euandresimoes.spring_crm.auth.application;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.exceptions.JWTCreationException;
 import com.euandresimoes.spring_crm.auth.domain.UserEntity;
 import com.euandresimoes.spring_crm.auth.domain.dto.LoginCommand;
 import com.euandresimoes.spring_crm.auth.domain.exception.AccountNotActiveException;
@@ -27,7 +27,7 @@ public class LoginService {
         this.jwtService = jwtService;
     }
 
-    public String execute(LoginCommand command) {
+    public String execute(LoginCommand command) throws Exception {
         Optional<UserEntity> user = repo.findByEmail(command.email());
 
         if (user.isEmpty())
@@ -38,7 +38,11 @@ public class LoginService {
         if (!pwdEncoder.matches(command.password(), user.get().getPasswordHash()))
             throw new InvalidCredentialsException("Invalid credentials");
 
-        var token = jwtService.generateToken(user.get().getId().toString(), Map.of("role", user.get().getRole()));
-        return token;
+        try {
+            var token = jwtService.generate(user.get().getId().toString(), user.get().getRole());
+            return token;
+        } catch (JWTCreationException e) {
+            throw new Exception(e.getMessage());
+        }
     }
 }

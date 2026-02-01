@@ -17,6 +17,7 @@ public class UserEntity {
     @Column(name = "password_hash")
     private String passwordHash;
     private boolean active;
+    @Enumerated(EnumType.STRING)
     private UserRoles role;
 
     public UserEntity() {

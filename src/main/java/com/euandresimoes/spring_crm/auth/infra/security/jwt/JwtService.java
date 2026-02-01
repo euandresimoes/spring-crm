@@ -1,44 +1,45 @@
 package com.euandresimoes.spring_crm.auth.infra.security.jwt;
 
-import java.util.Date;
-import java.util.Map;
-
-import javax.crypto.SecretKey;
+import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 @Service
 public class JwtService {
 
-    private final SecretKey key;
+    private final Algorithm algorithm;
 
-    private static final long EXPIRATION_MS = 1000 * 60 * 60;
-
-    public JwtService(
-            @Value("${security.jwt.secret}") String secret) {
-        this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+    public JwtService(@Value("${security.jwt.secret}") String secret) {
+        this.algorithm = Algorithm.HMAC256(secret);
     }
 
-    public String generateToken(String subject, Map<String, String> claims) {
-        return Jwts.builder()
-                .subject(subject)
-                .claims(claims)
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_MS))
-                .signWith(key)
-                .compact();
+    public String generate(String subject, String role) {
+        int expiration = 1000 * 60 * 60;
+
+        try {
+            String token = JWT.create()
+                    .withIssuer("spring-crm")
+                    .withSubject(subject)
+                    .withClaim("role", role)
+                    .withExpiresAt(Instant.now().plusMillis(expiration))
+                    .sign(algorithm);
+
+            return token;
+        } catch (JWTCreationException e) {
+            throw new JWTCreationException(e.getMessage(), null);
+        }
     }
 
-    public void validate(String token) {
-        Jwts.parser()
-            .verifyWith(key)
-            .build()
-            .parse(token);
+    public DecodedJWT verifyAndDecode(String token) {
+        return JWT.require(algorithm)
+                .withIssuer("spring-crm")
+                .build()
+                .verify(token);
     }
-
 }

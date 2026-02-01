@@ -30,7 +30,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ApiResponse<String> login(@RequestBody LoginCommand command) {
+    public ApiResponse<String> login(@RequestBody LoginCommand command) throws Exception {
         String token = loginService.execute(command);
         return ApiResponse.ok(token);
     }
