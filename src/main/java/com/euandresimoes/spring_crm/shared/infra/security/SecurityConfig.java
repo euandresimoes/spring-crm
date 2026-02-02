@@ -7,48 +7,54 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.euandresimoes.spring_crm.auth.domain.UserRoles;
+
 @Configuration
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtFilter;
+        private final JwtAuthenticationFilter jwtFilter;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
+        public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
+                this.jwtFilter = jwtFilter;
+        }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf
-                .ignoringRequestMatchers("/h2-console/**")
-                .disable())
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http.csrf(csrf -> csrf
+                                .ignoringRequestMatchers("/h2-console/**")
+                                .disable())
 
-                .headers(headers -> headers
-                        .frameOptions(frame -> frame.sameOrigin()))
+                                .headers(headers -> headers
+                                                .frameOptions(frame -> frame.sameOrigin()))
 
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .authorizeHttpRequests(auth -> auth
-                        // Swagger
-                        .requestMatchers(
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html")
-                        .permitAll()
+                                .authorizeHttpRequests(auth -> auth
+                                                // Swagger
+                                                .requestMatchers(
+                                                                "/v3/api-docs/**",
+                                                                "/swagger-ui/**",
+                                                                "/swagger-ui.html")
+                                                .permitAll()
 
-                        // H2 Database
-                        .requestMatchers(
-                                "/h2-console/**")
-                        .permitAll()
+                                                // H2 Database
+                                                .requestMatchers(
+                                                                "/h2-console/**")
+                                                .permitAll()
 
-                        // Auth
-                        .requestMatchers("/auth/**").permitAll()
+                                                // Auth
+                                                .requestMatchers("/auth/**").permitAll()
 
-                        // Outro
-                        .anyRequest().authenticated());
+                                                // Admin
+                                                .requestMatchers("/admin/**")
+                                                .hasRole(UserRoles.ADMIN.getRole())
 
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                                                // Outro
+                                                .anyRequest().authenticated());
 
-        return http.build();
-    }
+                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+                return http.build();
+        }
 
 }

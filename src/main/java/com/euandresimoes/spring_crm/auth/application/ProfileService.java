@@ -27,5 +27,5 @@ public class ProfileService {
                 user.getEmail(),
                 user.getRole());
     }
-
 }
+

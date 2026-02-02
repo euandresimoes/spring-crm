@@ -25,5 +25,5 @@ public class UserController {
             @AuthenticationPrincipal String id) {
         return ApiResponse.ok(profileService.execute(id));
     }
-
 }
+

@@ -34,5 +34,5 @@ public class AuthController {
         String token = loginService.execute(command);
         return ApiResponse.ok(token);
     }
-    
 }
+

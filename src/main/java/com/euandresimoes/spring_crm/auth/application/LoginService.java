@@ -13,7 +13,6 @@ import com.euandresimoes.spring_crm.auth.domain.exception.EmailNotFoundException
 import com.euandresimoes.spring_crm.auth.domain.exception.InvalidCredentialsException;
 import com.euandresimoes.spring_crm.auth.infra.repository.UserRepository;
 import com.euandresimoes.spring_crm.auth.infra.security.jwt.JwtService;
-
 @Service
 public class LoginService {
 
