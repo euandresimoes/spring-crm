@@ -20,7 +20,9 @@ public class ProfileService {
 
     public ProfileResponse execute(String id) {
         UserEntity user = repo.findById(UUID.fromString(id))
-                .orElseThrow(() -> new UserNotFoundException(id));
+                .orElseThrow(() -> {
+                    throw new UserNotFoundException(id);
+                });
 
         return new ProfileResponse(
                 id,
@@ -28,4 +30,3 @@ public class ProfileService {
                 user.getRole());
     }
 }
-

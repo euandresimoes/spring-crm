@@ -21,14 +21,18 @@ public class DeleteService {
         repo.findById(UUID.fromString(id))
                 .ifPresentOrElse(
                         u -> repo.delete(u),
-                        () -> new UserNotFoundException(id));
+                        () -> {
+                            throw new UserNotFoundException(id);
+                        });
     }
 
     public void deleteByEmail(String email) {
         repo.findByEmail(email)
                 .ifPresentOrElse(
                         u -> repo.delete(u),
-                        () -> new EmailNotFoundException(email));
+                        () -> {
+                            throw new EmailNotFoundException(email);
+                        });
     }
 
 }
