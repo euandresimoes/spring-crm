@@ -7,6 +7,7 @@
       "request": "launch",
       "mainClass": "com.euandresimoes.spring_crm.SpringCrmApplication",
       "vmArgs": "-Dspring.profiles.active=dev",
+      "preLaunchTask": "maven-compile",
       "env": {
         "SPRING_PROFILES_ACTIVE": "dev",
         // "openssl rand -base64 32"
@@ -19,6 +20,7 @@
       "request": "launch",
       "mainClass": "com.euandresimoes.spring_crm.SpringCrmApplication",
       "vmArgs": "-Dspring.profiles.active=prod",
+      "preLaunchTask": "maven-compile",
       "env": {
         "SPRING_PROFILES_ACTIVE": "prod",
         // "openssl rand -base64 32"

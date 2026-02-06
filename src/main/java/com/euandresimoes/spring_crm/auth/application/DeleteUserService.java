@@ -8,12 +8,15 @@ import com.euandresimoes.spring_crm.auth.domain.exception.EmailNotFoundException
 import com.euandresimoes.spring_crm.auth.domain.exception.UserNotFoundException;
 import com.euandresimoes.spring_crm.auth.infra.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
-public class DeleteService {
+@Transactional
+public class DeleteUserService {
 
     private final UserRepository repo;
 
-    public DeleteService(UserRepository repo) {
+    public DeleteUserService(UserRepository repo) {
         this.repo = repo;
     }
 

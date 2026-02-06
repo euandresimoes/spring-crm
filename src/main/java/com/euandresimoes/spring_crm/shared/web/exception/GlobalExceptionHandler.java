@@ -5,6 +5,7 @@ import com.euandresimoes.spring_crm.auth.domain.exception.EmailAlreadyInUseExcep
 import com.euandresimoes.spring_crm.auth.domain.exception.EmailNotFoundException;
 import com.euandresimoes.spring_crm.auth.domain.exception.InvalidCredentialsException;
 import com.euandresimoes.spring_crm.auth.domain.exception.UserNotFoundException;
+import com.euandresimoes.spring_crm.organization.organization_core.domain.exception.OrganizationNotFoundException;
 import com.euandresimoes.spring_crm.shared.web.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +41,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ApiResponse<String> handleUserNotFound(UserNotFoundException e) {
+        return ApiResponse.error(HttpStatus.NOT_FOUND.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(OrganizationNotFoundException.class)
+    public ApiResponse<String> handleOrganizationNotFound(OrganizationNotFoundException e) {
         return ApiResponse.error(HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 }

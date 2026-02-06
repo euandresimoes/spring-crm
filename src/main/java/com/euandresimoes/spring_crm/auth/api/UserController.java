@@ -11,7 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("api/v1/user")
 public class UserController {
 
     private final ProfileService profileService;
@@ -26,4 +26,3 @@ public class UserController {
         return ApiResponse.ok(profileService.execute(id));
     }
 }
-

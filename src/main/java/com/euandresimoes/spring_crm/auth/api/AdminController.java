@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.euandresimoes.spring_crm.auth.application.DeleteService;
-import com.euandresimoes.spring_crm.auth.application.FindService;
+import com.euandresimoes.spring_crm.auth.application.DeleteUserService;
+import com.euandresimoes.spring_crm.auth.application.FindUserService;
 import com.euandresimoes.spring_crm.auth.domain.dto.FindUserResponse;
 import com.euandresimoes.spring_crm.shared.web.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("api/v1/admin")
 public class AdminController {
 
-    private final FindService findService;
-    private final DeleteService deleteService;
+    private final FindUserService findService;
+    private final DeleteUserService deleteService;
 
-    public AdminController(FindService findService, DeleteService deleteService) {
+    public AdminController(FindUserService findService, DeleteUserService deleteService) {
         this.findService = findService;
         this.deleteService = deleteService;
     }

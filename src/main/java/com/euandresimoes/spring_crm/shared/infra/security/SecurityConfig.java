@@ -43,10 +43,10 @@ public class SecurityConfig {
                                                 .permitAll()
 
                                                 // Auth
-                                                .requestMatchers("/auth/**").permitAll()
+                                                .requestMatchers("api/v1/auth/**").permitAll()
 
                                                 // Admin
-                                                .requestMatchers("/admin/**")
+                                                .requestMatchers("api/v1/admin/**")
                                                 .hasRole(UserRoles.ADMIN.getRole())
 
                                                 // Outro

@@ -16,11 +16,11 @@ import com.euandresimoes.spring_crm.auth.domain.exception.UserNotFoundException;
 import com.euandresimoes.spring_crm.auth.infra.repository.UserRepository;
 
 @Service
-public class FindService {
+public class FindUserService {
 
     private final UserRepository repo;
 
-    public FindService(UserRepository repo) {
+    public FindUserService(UserRepository repo) {
         this.repo = repo;
     }
 
