@@ -22,12 +22,12 @@
       "vmArgs": "-Dspring.profiles.active=prod",
       "preLaunchTask": "maven-compile",
       "env": {
-        "SPRING_PROFILES_ACTIVE": "prod",
+        "SPRING_PROFILES_ACTIVE": "prod"
         // "openssl rand -base64 32"
-        "JWT_SECRET": "super-secret-prod",
-        "DB_URL": "jdbc:postgresql://pg:3306/proddb",
-        "DB_USER": "prod",
-        "DB_PWD": "prod"
+        // "JWT_SECRET": "super-secret-prod",
+        // "DB_URL": "jdbc:postgresql://localhost:5432/prod",
+        // "DB_USER": "prod",
+        // "DB_PWD": "prod"
       }
     }
   ]

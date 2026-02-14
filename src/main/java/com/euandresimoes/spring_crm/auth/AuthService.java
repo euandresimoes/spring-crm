@@ -43,7 +43,7 @@ public class AuthService {
                 true,
                 UserRoles.USER));
 
-        return new CreateUserResponse(user.getId(), user.getEmail(), user.getRole());
+        return CreateUserResponse.from(user);
     }
 
     public String login(LoginCommand command) throws Exception {
@@ -84,20 +84,14 @@ public class AuthService {
         UserEntity user = repo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id.toString()));
 
-        return new FindUserResponse(
-                user.getId().toString(),
-                user.getEmail(),
-                user.getRole());
+        return FindUserResponse.from(user);
     }
 
     public FindUserResponse findUserByEmail(String email) {
         UserEntity user = repo.findByEmail(email)
                 .orElseThrow(() -> new EmailNotFoundException(email));
 
-        return new FindUserResponse(
-                user.getId().toString(),
-                user.getEmail(),
-                user.getRole());
+        return FindUserResponse.from(user);
     }
 
     public List<FindUserResponse> findAllUsers(int page, int size) {
@@ -105,7 +99,7 @@ public class AuthService {
         Page<UserEntity> pageResult = repo.findAll(pageable);
 
         return pageResult.stream()
-                .map(u -> new FindUserResponse(u.getId().toString(), u.getEmail(), u.getRole()))
+                .map(FindUserResponse::from)
                 .collect(Collectors.toList());
     }
 
@@ -113,9 +107,6 @@ public class AuthService {
         UserEntity user = repo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id.toString()));
 
-        return new ProfileResponse(
-                id.toString(),
-                user.getEmail(),
-                user.getRole());
+        return ProfileResponse.from(user);
     }
 }

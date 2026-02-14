@@ -24,7 +24,7 @@ public class OrganizationService {
                 userId,
                 name));
 
-        return new OrganizationResponse(org.getId(), org.getName());
+        return new OrganizationResponse(org.getId(), org.getName(), org.getCreatedAt(), org.getUpdatedAt());
     }
 
     public void deleteOrganization(UUID userId, UUID id) {
@@ -33,7 +33,9 @@ public class OrganizationService {
 
     public List<OrganizationResponse> findAllOrganizations(UUID userId) {
         List<OrganizationEntity> orgs = repo.findAllByUserId(userId);
-        return orgs.stream().map(org -> new OrganizationResponse(org.getId(), org.getName())).toList();
+        return orgs.stream().map(
+                org -> new OrganizationResponse(org.getId(), org.getName(), org.getCreatedAt(), org.getUpdatedAt()))
+                .toList();
     }
 
     public void updateOrganization(UUID userId, UpdateOrganizationCommand command) {

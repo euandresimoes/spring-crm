@@ -7,6 +7,8 @@ import com.euandresimoes.spring_crm.auth.exception.InvalidCredentialsException;
 import com.euandresimoes.spring_crm.auth.exception.UserNotFoundException;
 import com.euandresimoes.spring_crm.organization.clients.exception.ClientNotFoundException;
 import com.euandresimoes.spring_crm.organization.organization_core.exception.OrganizationNotFoundException;
+import com.euandresimoes.spring_crm.organization.transactions.exception.TransactionNotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -51,6 +53,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ClientNotFoundException.class)
     public ApiResponse<String> handleClientNotFound(ClientNotFoundException e) {
+        return ApiResponse.error(HttpStatus.NOT_FOUND.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ApiResponse<String> handleTransactionNotFound(TransactionNotFoundException e) {
         return ApiResponse.error(HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 }

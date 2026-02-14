@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USER}
+    password: ${DB_PWD}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}

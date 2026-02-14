@@ -3,7 +3,10 @@ CREATE SCHEMA IF NOT EXISTS organization;
 CREATE TABLE organization.organizations (
     id UUID PRIMARY KEY,
     user_id UUID NOT NULL,
-    name VARCHAR(30) NOT NULL
+    name VARCHAR(30) NOT NULL,
+
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE organization.clients (

@@ -1,10 +1,29 @@
 services:
   postgres:
-    image: 'postgres:16-alpine'
+    image: "postgres:16-alpine"
     environment:
-      - 'POSTGRES_DB=dev'
-      - 'POSTGRES_PASSWORD=dev'
-      - 'POSTGRES_USER=dev'
+      - "POSTGRES_DB=prod"
+      - "POSTGRES_PASSWORD=prod"
+      - "POSTGRES_USER=prod"
     ports:
-      - '5432'
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "prod"]
 
+  holo:
+    image: holostudio/studio:latest
+    ports:
+      - 23806:23806
+    environment:
+      - DB_TYPE=postgres
+      - DB_USER=prod
+      - DB_PASSWORD=prod
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=prod
+      - SSL_MODE=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # TODO: ADICIONAR APLICACAO SPRING BOOT AQUI!!!
