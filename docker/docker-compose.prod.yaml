@@ -9,6 +9,8 @@ services:
       - "5432:5432"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "prod"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   holo:
     image: holostudio/studio:latest
@@ -26,4 +28,17 @@ services:
       postgres:
         condition: service_healthy
 
-  # TODO: ADICIONAR APLICACAO SPRING BOOT AQUI!!!
+  spring-crm:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env.prod
+
+volumes:
+  postgres_data:
